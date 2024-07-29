@@ -1,0 +1,89 @@
+#!/bin/bash
+
+super + r
+	pkill -USR1 sxhkd
+
+alt + p
+	dmenu_run
+
+ctrl + alt + shift + a
+	chromium --new-tab "https://github.com/microsoft/demikernel/actions"
+
+ctrl + alt + shift + p
+	chromium --new-tab "https://github.com/microsoft/demikernel/pulls"
+
+ctrl + alt + c
+	~/Dropbox/scripts/dmenu_scripts/config_menu.sh
+	# code /home/abonde/.config/sxhkd/sxhkdrc; \
+	# code /home/abonde/.config/awesome/rc.lua; \
+	# code /home/abonde/.config/i3/config; \
+	# code /home/abonde/.xmonad/xmonad.hs; \
+	# code /home/abonde/.config/qtile/config.py
+	#
+
+super + c; a
+	xterm -e nvim ~/.config/awesome/rc.lua
+	
+super + c; d
+	xterm -e nvim ~/projects/suckless/dwm/config.def.h
+	
+super + c; s
+	xterm -e nvim ~/.config/sxhkd/sxhkdrc
+
+super + c; p
+	xterm -e nvim ~/.config/picom/picom.conf
+
+super + c; r
+	xterm -e nvim ~/.config/rofi/config.rasi
+
+super + c; v
+	xterm -e nvim ~/.config/nvim/init.lua
+
+ctrl + alt + w
+	~/Dropbox/scripts/dmenu_scripts/work_scripts/work_links.sh
+
+ctrl + alt + z
+	chromium --new-tab "portal.azure.com"
+
+{ alt + t, F1}
+	wmctrl -x -a XTerm || xterm
+
+{alt + g, F2}
+	wmctrl -x -a steam_app_444200 || steam -silent steam://rungameid/444200
+
+{alt + c, F3}
+	wmctrl -x -a Chromium || chromium
+
+{alt + v, F4}
+	wmctrl -x -a Code || code
+
+F6
+	wmctrl -x -a rstudio || rstudio
+
+F10
+	chromium --new-tab chat.openai.com
+
+super + shift + r 
+	rofi -show ssh
+
+super + shift + s
+	pkill -9 steam && slock & sudo systemctl suspend
+
+alt + super + l
+	slock & xset dpms force off
+
+# Toggle picom
+super + p
+	pgrep -x picom && pkill picom || picom
+
+# Increase volume
+ctrl + alt + Up
+	amixer -D pulse sset Master 5%+
+
+# Decrease volume
+ctrl + alt + Down
+	amixer -D pulse sset Master 5%-
+
+super + shift + y
+	chromium --new-tab "https://youtube.com"
+	
