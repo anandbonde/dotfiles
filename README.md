@@ -3,7 +3,7 @@ My dotfiles
 
 ## Steps to use
 
-* Install gnu stow (Ubuntu: `sudo apt install stow`)
+* Install gnu stow (Ubuntu: `sudo apt install stow`, Mac: `brew install stow`)
 * Clone this repo and enter the directory
 * Make sure that none of the config directories are present in your home directory (~)
 * Run the command:
