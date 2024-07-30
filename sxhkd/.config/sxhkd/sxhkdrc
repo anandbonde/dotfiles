@@ -55,6 +55,9 @@ ctrl + alt + z
 	wmctrl -x -a Chromium || chromium
 
 {alt + v, F4}
+	wmctrl -x -a obsidian || obsidian
+
+{alt + o, F5}
 	wmctrl -x -a Code || code
 
 F6

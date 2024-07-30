@@ -1,0 +1,20 @@
+XTerm*faceName: Fira Code
+XTerm*faceSize: 11
+XTerm*background: black
+XTerm*foreground: grey
+
+XTerm.vt100.translations: #override \n\
+  Ctrl <KeyPress> plus: larger-vt-font() \n\
+  Ctrl <KeyPress> minus: smaller-vt-font()
+  Ctrl <Key> Insert: copy-selection(CLIPBOARD)
+
+XTerm*selectToClipboard: true
+
+XTerm*VT100*translations: #override \n\
+    <Btn1Up>: select-end(PRIMARY, CLIPBOARD) \n\
+    <Btn2Up>: select-end(PRIMARY, CLIPBOARD) \n\
+    <Btn3Up>: select-end(PRIMARY, CLIPBOARD)
+
+URxvt.font: xft:DejaVu Sans Mono:size=12
+URxvt.background: black
+URxvt.foreground: grey
