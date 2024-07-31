@@ -85,7 +85,7 @@ beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 -- 	border_marked = kanagawa_colors.border_marked,
 -- })
 
-beautiful.font = "Fira Code 11"
+beautiful.font = "SF Mono 11"
 
 -- This is used later as the default terminal and editor to run.
 terminal = "xterm"
@@ -557,11 +557,14 @@ awful.rules.rules = {
 	},
 
 	-- Add titlebars to normal clients and dialogs
-	{ rule_any = { type = { "normal", "dialog" } }, properties = { titlebars_enabled = false } },
+	{ rule_any = { type = { "normal", "dialog" } }, properties = { titlebars_enabled = true } },
 
 	-- Set Firefox to always map on the tag named "2" on screen 1.
 	-- { rule = { class = "Firefox" },
 	--   properties = { screen = 1, tag = "2" } },
+
+	{ rule = { class = "steam" }, properties = { screen = 1, tag = "9" } },
+	{ rule = { class = "steam_app_444200" }, properties = { screen = 1, tag = "2" } },
 }
 -- }}}
 
