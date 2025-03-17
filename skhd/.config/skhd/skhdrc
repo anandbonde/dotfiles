@@ -1,43 +1,50 @@
 # App focus and startups
 lcmd + ctrl - r : skhd -r
-lcmd - 1 : open -a "iTerm"
-lcmd - 2 : open -a "Visual Studio Code"
+lcmd - 1 : open -a "alacritty"
+# lcmd - 2 : open -a "Visual Studio Code"
 lcmd - 3 : open -a "Microsoft Edge"
-lcmd - 4 : open -a "Microsoft Remote Desktop"
-lcmd - 5 : open -a "Microsoft Edge" "https://chat.openai.com"
-lcmd - 7 : open -a "Microsoft OneNote"
+lcmd - 4 : open -a "Microsoft To Do"
+lcmd - 5 : open -a "Slack"
+lcmd - 6 : open -a "Microsoft OneNote"
 lcmd - 8 : open -a "Microsoft Outlook"
 lcmd - 9 : open -a "Microsoft Teams"
-# lcmd - 0 : open -a "Microsoft To Do"
 
+ctrl + lcmd - a : open -a "Microsoft Edge" "https://github.com/microsoft/demikernel/actions"
+ctrl + lcmd - g : open -a "Microsoft Edge" "https://chat.openai.com"
 ctrl + lcmd - p : open -a "Microsoft Edge" "https://github.com/microsoft/demikernel/pulls"
-ctrl + lcmd - z : open -a "Microsoft Edge" "https://portal.azure.com"
+ctrl + lcmd - s : alacritty -e nvim /Users/anand/.config/skhd/skhdrc
+ctrl + lcmd - t : alacritty -e nvim /Users/anand/.config/alacritty/alacritty.toml
+ctrl + lcmd - v : /Users/anand/work/connect_to_vpns.sh &
+ctrl + lcmd - w : alacritty -e et abonde@198.19.2.14 -c fish
 ctrl + lcmd - y : open -a "Microsoft Edge" "https://www.youtube.com"
+ctrl + lcmd - z : open -a "Microsoft Edge" "https://portal.azure.com"
 
-# Window focus with directions
-lcmd - h : yabai -m window --focus west
-lcmd - j : yabai -m window --focus south
-lcmd - k : yabai -m window --focus north
-lcmd - l : yabai -m window --focus east
+shift + lcmd - s : pmset sleepnow
 
-# Move window to display left and right
-shift + alt - s : yabai -m window --display west; yabai -m display --focus west;
-shift + alt - g : yabai -m window --display east; yabai -m display --focus east;
-
-# move window to prev and next space
-shift + alt - p : yabai -m window --space prev;
-shift + alt - n : yabai -m window --space next;
-
-# move window to space #
-shift + alt - 1 : yabai -m window --space 1;
-shift + alt - 2 : yabai -m window --space 2;
-shift + alt - 3 : yabai -m window --space 3;
-shift + alt - 4 : yabai -m window --space 4;
-shift + alt - 5 : yabai -m window --space 5;
-shift + alt - 6 : yabai -m window --space 6;
-shift + alt - 7 : yabai -m window --space 7;
+# # Window focus with directions
+# lcmd - h : yabai -m window --focus west
+# lcmd - j : yabai -m window --focus south
+# lcmd - k : yabai -m window --focus north
+# lcmd - l : yabai -m window --focus east
+#
+# # Move window to display left and right
+# shift + alt - s : yabai -m window --display west; yabai -m display --focus west;
+# shift + alt - g : yabai -m window --display east; yabai -m display --focus east;
+#
+# # move window to prev and next space
+# shift + alt - p : yabai -m window --space prev;
+# shift + alt - n : yabai -m window --space next;
+#
+# # move window to space #
+# shift + alt - 1 : yabai -m window --space 1;
+# shift + alt - 2 : yabai -m window --space 2;
+# shift + alt - 3 : yabai -m window --space 3;
+# shift + alt - 4 : yabai -m window --space 4;
+# shift + alt - 5 : yabai -m window --space 5;
+# shift + alt - 6 : yabai -m window --space 6;
+# shift + alt - 7 : yabai -m window --space 7;
 
 # stop/start/restart yabai
-ctrl + alt - q : yabai --stop-service
-ctrl + alt - s : yabai --start-service
-ctrl + alt - r : yabai --restart-service
+# ctrl + alt - q : yabai --stop-service
+# ctrl + alt - s : yabai --start-service
+# ctrl + alt - r : yabai --restart-service
