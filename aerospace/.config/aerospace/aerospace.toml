@@ -132,10 +132,11 @@ ctrl-cmd-j = 'exec-and-forget ssh -N -f -L 8888:localhost:8888 abonde@198.19.2.1
 ctrl-cmd-g = 'exec-and-forget open -a "Microsoft Edge" "https://chat.openai.com"'
 ctrl-cmd-n = 'exec-and-forget wezterm -e nvim /Users/anand/.config/nvim/init.lua'
 ctrl-cmd-p = 'exec-and-forget open -a "Microsoft Edge" "https://github.com/microsoft/demikernel/pulls"'
-ctrl-cmd-t = 'exec-and-forget wezterm -e nvim ~/.wezterm.lua'
+ctrl-cmd-t = 'exec-and-forget wezterm -e nvim ~/.config/wezterm/wezterm.lua'
 ctrl-cmd-v = 'exec-and-forget /Users/anand/work/connect_to_vpns.sh &'
 ctrl-cmd-w = 'exec-and-forget wezterm -e et abonde@198.19.2.14 -c fish'
 ctrl-cmd-y = 'exec-and-forget open -a "Microsoft Edge" "https://www.youtube.com"'
+ctrl-cmd-z = 'exec-and-forget open -a "Microsoft Edge" "https://portal.azure.com"'
 
 cmd-shift-s = 'exec-and-forget pmset sleepnow'
 
