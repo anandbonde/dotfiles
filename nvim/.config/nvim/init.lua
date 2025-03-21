@@ -923,7 +923,7 @@ require("lazy").setup({
 					style = "warmer", -- Default style
 				},
 			})
-			-- vim.cmd("colorscheme onedark")
+			vim.cmd("colorscheme onedark")
 		end,
 	},
 
@@ -958,7 +958,7 @@ require("lazy").setup({
 					floats = "transparent",
 				},
 			})
-			vim.cmd.colorscheme("tokyonight-storm")
+			-- vim.cmd.colorscheme("tokyonight-storm")
 		end,
 	},
 
