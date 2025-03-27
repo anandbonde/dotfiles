@@ -20,7 +20,7 @@ vim.g.have_nerd_font = true
 --  For more options, you can see `:help option-list`
 
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
@@ -47,7 +47,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Keep signcolumn on by default
-vim.opt.signcolumn = "yes"
+-- vim.opt.signcolumn = "yes"
 
 -- Idle milliseconds before writing to swap file.
 vim.opt.updatetime = 250
@@ -104,11 +104,6 @@ vim.keymap.set("n", "<leader>e", function()
 end, { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
-
--- vim.keymap.set("n", "gn", '<cmd>lua require"gitsigns".nav_hunk("next")<CR>', { desc = "[G]it [N]ext Hunk" })
--- vim.keymap.set("n", "gp", '<cmd>lua require"gitsigns".nav_hunk("prev")<CR>', { desc = "[G]it [P]rev Hunk" })
--- vim.keymap.set("n", "<leader>gd", '<cmd>lua require"gitsigns".preview_hunk()<CR>', { desc = "Git [H]unk" })
--- vim.keymap.set("n", "<leader>gr", '<cmd>lua require"gitsigns".reset_hunk()<CR>', { desc = "Git [H]unk" })
 
 vim.keymap.set("n", "<leader>z", ":Files<CR>", { silent = true })
 vim.keymap.set("n", "<leader>n", ":bnext<CR>", { silent = true })
@@ -245,19 +240,6 @@ vim.opt.rtp:prepend(lazypath)
 -- Use `opts = {}` to force a plugin to be loaded.
 require("lazy").setup({
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
-
-	{
-		"lewis6991/gitsigns.nvim",
-		opts = {
-			signs = {
-				add = { text = "+" },
-				change = { text = "~" },
-				delete = { text = "_" },
-				topdelete = { text = "‾" },
-				changedelete = { text = "~" },
-			},
-		},
-	},
 
 	{
 		"kdheepak/lazygit.nvim",
@@ -406,11 +388,6 @@ require("lazy").setup({
 				-- You can put your default mappings / updates / etc. in here
 				--  All the info you're looking for is in `:help telescope.setup()`
 				--
-				-- defaults = {
-				--   mappings = {
-				--     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-				--   },
-				-- },
 				-- pickers = {}
 				extensions = {
 					["ui-select"] = {
@@ -463,20 +440,20 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"folke/flash.nvim",
-		event = "VeryLazy",
-		---@type Flash.Config
-		opts = {},
-  -- stylua: ignore
-  keys = {
-    { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-    { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-    { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-    { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-    { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-  },
-	},
+	-- {
+	-- 	"folke/flash.nvim",
+	-- 	event = "VeryLazy",
+	-- 	---@type Flash.Config
+	-- 	opts = {},
+	--    -- stylua: ignore
+	--    keys = {
+	--      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+	--      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+	--      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+	--      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+	--      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+	--    },
+	-- },
 
 	-- LSP Plugins
 	{
@@ -877,41 +854,6 @@ require("lazy").setup({
 	},
 
 	{
-		"NTBBloodbath/doom-one.nvim",
-		setup = function()
-			-- Add color to cursor
-			vim.g.doom_one_cursor_coloring = false
-			-- Set :terminal colors
-			vim.g.doom_one_terminal_colors = true
-			-- Enable italic comments
-			vim.g.doom_one_italic_comments = false
-			-- Enable TS support
-			vim.g.doom_one_enable_treesitter = true
-			-- Color whole diagnostic text or only underline
-			vim.g.doom_one_diagnostics_text_color = false
-			-- Enable transparent background
-			vim.g.doom_one_transparent_background = false
-
-			-- Pumblend transparency
-			vim.g.doom_one_pumblend_enable = false
-			vim.g.doom_one_pumblend_transparency = 20
-
-			-- Plugins integration
-			vim.g.doom_one_plugin_neorg = true
-			vim.g.doom_one_plugin_barbar = false
-			vim.g.doom_one_plugin_telescope = false
-			vim.g.doom_one_plugin_neogit = true
-			vim.g.doom_one_plugin_nvim_tree = true
-			vim.g.doom_one_plugin_dashboard = true
-			vim.g.doom_one_plugin_startify = true
-			vim.g.doom_one_plugin_whichkey = true
-			vim.g.doom_one_plugin_indent_blankline = true
-			vim.g.doom_one_plugin_vim_illuminate = true
-			vim.g.doom_one_plugin_lspsaga = false
-		end,
-	},
-
-	{
 		"olimorris/onedarkpro.nvim",
 		priority = 1000, -- Load before anything else
 		config = function()
@@ -923,42 +865,18 @@ require("lazy").setup({
 					style = "warmer", -- Default style
 				},
 			})
-			vim.cmd("colorscheme onedark")
-		end,
-	},
-
-	"bluz71/vim-nightfly-colors",
-
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-
-	{
-		"projekt0n/github-nvim-theme",
-		name = "github-theme",
-		init = function()
-			require("github-theme").setup({
-				dim_inactive = false,
-				styles = {
-					comments = { italic = true },
-					functions = { bold = true, italic = true },
-					keywords = { italic = true },
-					variables = { italic = false },
-				},
-			})
+			-- vim.cmd("colorscheme onedark")
 		end,
 	},
 
 	{
-		"folke/tokyonight.nvim",
-		priority = 1000,
-		init = function()
-			require("tokyonight").setup({
-				transparent = true,
-				styles = {
-					sidebars = "transparent",
-					floats = "transparent",
-				},
+		"catppuccin/nvim",
+		name = "catppuccin",
+		config = function()
+			require("catppuccin").setup({
+				transparent_background = true,
 			})
-			-- vim.cmd.colorscheme("tokyonight-storm")
+			vim.cmd("colorscheme catppuccin-frappe")
 		end,
 	},
 
@@ -1100,25 +1018,6 @@ require("lazy").setup({
 		end,
 	},
 
-	-- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
-	-- init.lua. If you want these files, they are in the repository, so you can just download them and
-	-- place them in the correct locations.
-
-	-- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
-	--
-	--  Here are some example plugins that I've included in the Kickstart repository.
-	--  Uncomment any of the lines below to enable them (you will need to restart nvim).
-	--
-	-- require 'kickstart.plugins.debug',
-	-- require 'kickstart.plugins.indent_line',
-	-- require 'kickstart.plugins.lint',
-	-- require 'kickstart.plugins.autopairs',
-	-- require 'kickstart.plugins.neo-tree',
-	-- require("kickstart.plugins.gitsigns"), -- adds gitsigns recommend keymaps
-
-	-- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-	--    This is the easiest way to modularize your config.
-	--
 	--  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
 	--    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
 	-- { import = 'custom.plugins' },
