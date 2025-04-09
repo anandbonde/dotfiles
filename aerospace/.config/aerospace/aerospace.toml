@@ -8,6 +8,8 @@ after-login-command = []
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
     'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0',
+    'exec-and-forget skhd --stop-service',
+
 ]
 
 # Start AeroSpace at login
@@ -127,7 +129,6 @@ cmd-8 = 'exec-and-forget open -a "Microsoft Outlook"'
 cmd-9 = 'exec-and-forget open -a "Microsoft Teams"'
 
 ctrl-cmd-a = 'exec-and-forget wezterm -e nvim /Users/anand/.config/aerospace/aerospace.toml'
-ctrl-cmd-f = 'exec-and-forget wezterm -e nvim /Users/anand/.config/fish/config.fish'
 ctrl-cmd-j = 'exec-and-forget ssh -N -f -L 8888:localhost:8888 abonde@198.19.2.14 && sleep 2; open http://localhost:8888'
 ctrl-cmd-g = 'exec-and-forget open -a "Microsoft Edge" "https://chat.openai.com"'
 ctrl-cmd-n = 'exec-and-forget wezterm -e nvim /Users/anand/.config/nvim/init.lua'

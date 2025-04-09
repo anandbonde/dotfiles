@@ -1,6 +1,6 @@
 # App focus and startups
 lcmd + ctrl - r : skhd -r
-lcmd - 1 : open -a "wezterm"
+lcmd - 1 : open -a "alacritty"
 # lcmd - 2 : open -a "Visual Studio Code"
 lcmd - 3 : open -a "Microsoft Edge"
 lcmd - 4 : open -a "Microsoft To Do"
@@ -12,10 +12,10 @@ lcmd - 9 : open -a "Microsoft Teams"
 ctrl + lcmd - a : open -a "Microsoft Edge" "https://github.com/microsoft/demikernel/actions"
 ctrl + lcmd - g : open -a "Microsoft Edge" "https://chat.openai.com"
 ctrl + lcmd - p : open -a "Microsoft Edge" "https://github.com/microsoft/demikernel/pulls"
-ctrl + lcmd - s : wezterm -e nvim /Users/anand/.config/skhd/skhdrc
-ctrl + lcmd - t : wezterm -e nvim /Users/anand/.config/wezterm/wezterm.lua
+ctrl + lcmd - s : alacritty -e nvim /Users/anand/.config/skhd/skhdrc
+ctrl + lcmd - t : alacritty -e nvim /Users/anand/.config/alacritty/alacritty.toml
 ctrl + lcmd - v : /Users/anand/work/connect_to_vpns.sh &
-ctrl + lcmd - w : wezterm -e et abonde@198.19.2.14 -c fish
+ctrl + lcmd - w : alacritty -e et abonde@198.19.2.14 -c fish
 ctrl + lcmd - y : open -a "Microsoft Edge" "https://www.youtube.com"
 ctrl + lcmd - z : open -a "Microsoft Edge" "https://portal.azure.com"
 
