@@ -870,13 +870,26 @@ require("lazy").setup({
 	},
 
 	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
+		config = function()
+			require("tokyonight").setup({
+				transparent_background = false,
+			})
+			vim.cmd("colorscheme tokyonight-storm")
+		end,
+	},
+
+	{
 		"catppuccin/nvim",
 		name = "catppuccin",
 		config = function()
 			require("catppuccin").setup({
 				transparent_background = true,
 			})
-			vim.cmd("colorscheme catppuccin-frappe")
+			-- vim.cmd("colorscheme catppuccin-frappe")
 		end,
 	},
 
