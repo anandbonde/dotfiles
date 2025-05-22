@@ -80,6 +80,14 @@ vim.g.nvim_tree_side = "right"
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+vim.keymap.set("n", "<F5>", function()
+	vim.o.background = "dark"
+end, { desc = "Set dark background" })
+
+vim.keymap.set("n", "<F6>", function()
+	vim.o.background = "light"
+end, { desc = "Set light background" })
+
 vim.keymap.set("n", "<leader>tt", function()
 	vim.cmd("Telescope colorscheme")
 end, { desc = "Select colorscheme" })
@@ -213,6 +221,15 @@ vim.keymap.set("n", "<M-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "python",
+	callback = function()
+		vim.bo.tabstop = 8
+		vim.bo.shiftwidth = 8
+		vim.bo.softtabstop = 8
+		vim.bo.expandtab = false -- Set to false if you want actual tab characters
+	end,
+})
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
@@ -676,6 +693,7 @@ require("lazy").setup({
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"clangd",
+					"pyright",
 					"rust_analyzer",
 				},
 				automatic_installation = true,
@@ -713,7 +731,7 @@ require("lazy").setup({
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
 				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true, python = true }
+				local disable_filetypes = { c = true, cpp = true, python = false }
 				local lsp_format_opt
 				if disable_filetypes[vim.bo[bufnr].filetype] then
 					lsp_format_opt = "never"
@@ -853,13 +871,15 @@ require("lazy").setup({
 		end,
 	},
 
+	{ "EdenEast/nightfox.nvim" },
+
 	{
 		"olimorris/onedarkpro.nvim",
 		priority = 1000, -- Load before anything else
 		config = function()
 			require("onedarkpro").setup({
 				options = {
-					cursorline = true,
+					cursorline = false,
 					transparency = false, -- Set true if you like a see-through background
 					terminal_colors = true,
 					style = "warmer", -- Default style
@@ -869,6 +889,8 @@ require("lazy").setup({
 		end,
 	},
 
+	{ "dasupradyumna/midnight.nvim", lazy = false, priority = 1000 },
+
 	{
 		"folke/tokyonight.nvim",
 		lazy = false,
@@ -877,8 +899,9 @@ require("lazy").setup({
 		config = function()
 			require("tokyonight").setup({
 				transparent_background = false,
+				transparent = false,
 			})
-			vim.cmd("colorscheme tokyonight-storm")
+			vim.cmd("colorscheme onedark_dark")
 		end,
 	},
 
@@ -905,6 +928,15 @@ require("lazy").setup({
 					enable = true,
 				},
 			})
+		end,
+		on_attach = function(bufnr)
+			local api = require("nvim-tree.api")
+			local function opts(desc)
+				return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+			end
+
+			-- override <LeftMouse> to open file
+			vim.keymap.set("n", "<LeftMouse>", api.node.open.edit, opts("Open File"))
 		end,
 	},
 	{
@@ -969,6 +1001,30 @@ require("lazy").setup({
 
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
+		end,
+	},
+	{
+		"andythigpen/nvim-coverage",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("coverage").setup({
+				auto_reload = true,
+				coverage_file = "coverage.info",
+				lang = {
+					lua = {
+						coverage_file = "coverage.xml",
+						coverage_command = nil,
+					},
+					-- rust = {
+					-- 	coverage_file = "coverage.info",
+					-- 	coverage_command = nil,
+					-- },
+				},
+			})
+		end,
+		init = function()
+			vim.keymap.set("n", "<leader>tc", ":Coverage<CR>", { noremap = true, silent = true })
+			vim.keymap.set("n", "<leader>ts", ":CoverageSummary<CR>", { noremap = true, silent = true })
 		end,
 	},
 	{ -- Highlight, edit, and navigate code
