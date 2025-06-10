@@ -822,7 +822,7 @@ require("lazy").setup({
 					--  This will auto-import if your LSP supports it.
 					--  This will expand snippets if the LSP sent a snippet.
 					-- ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-					["<Tab>"] = cmp.mapping.confirm({ select = true }),
+					-- ["<Tab>"] = cmp.mapping.confirm({ select = true }),
 
 					-- If you prefer more traditional completion keymaps,
 					-- you can uncomment the following lines
@@ -871,8 +871,6 @@ require("lazy").setup({
 		end,
 	},
 
-	{ "EdenEast/nightfox.nvim" },
-
 	{
 		"olimorris/onedarkpro.nvim",
 		priority = 1000, -- Load before anything else
@@ -901,22 +899,13 @@ require("lazy").setup({
 				transparent_background = false,
 				transparent = false,
 			})
-			vim.cmd("colorscheme onedark_dark")
-		end,
-	},
-
-	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		config = function()
-			require("catppuccin").setup({
-				transparent_background = true,
-			})
-			-- vim.cmd("colorscheme catppuccin-frappe")
+			vim.cmd("colorscheme tokyonight-storm")
 		end,
 	},
 
 	-- Other plugins
+	"lewis6991/gitsigns.nvim",
+
 	{
 		"nvim-tree/nvim-tree.lua",
 		dependencies = {
@@ -939,22 +928,25 @@ require("lazy").setup({
 			vim.keymap.set("n", "<LeftMouse>", api.node.open.edit, opts("Open File"))
 		end,
 	},
+
 	{
 		"github/Copilot.vim",
 		init = function()
 			vim.keymap.set("i", "<C-Space>", "<Plug>(copilot_accept_line)", { noremap = false })
 		end,
 	},
+
 	{
 		"jreybert/vimagit",
 		init = function()
 			vim.keymap.set("n", "<leader>mg", "<cmd>Magit<cr>", { desc = "Open Magit" })
 		end,
 	},
+
 	{
 		"APZelos/blamer.nvim",
 		init = function()
-			vim.keymap.set("n", "<leader>b", ":BlamerToggle<CR>", { noremap = true, silent = true })
+			vim.keymap.set("n", "<leader>tb", ":BlamerToggle<CR>", { noremap = true, silent = true })
 		end,
 	},
 
@@ -983,21 +975,6 @@ require("lazy").setup({
 			-- - sd'   - [S]urround [D]elete [']quotes
 			-- - sr)'  - [S]urround [R]eplace [)] [']
 			require("mini.surround").setup()
-
-			-- Simple and easy statusline.
-			--  You could remove this setup call if you don't like it,
-			--  and try some other statusline plugin
-			local statusline = require("mini.statusline")
-			-- set use_icons to true if you have a Nerd Font
-			statusline.setup({ use_icons = vim.g.have_nerd_font })
-
-			-- You can configure sections in the statusline by overriding their
-			-- default behavior. For example, here we set the section for
-			-- cursor location to LINE:COLUMN
-			---@diagnostic disable-next-line: duplicate-set-field
-			statusline.section_location = function()
-				return "%2l:%-2v"
-			end
 
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
@@ -1083,7 +1060,7 @@ require("lazy").setup({
 			})
 		end,
 		init = function()
-			vim.keymap.set("n", "<leader>ct", ":TSContextToggle<CR>", { noremap = true, silent = true })
+			vim.keymap.set("n", "<leader>tx", ":TSContextToggle<CR>", { noremap = true, silent = true })
 		end,
 	},
 
