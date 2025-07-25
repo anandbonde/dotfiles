@@ -1,0 +1,14 @@
+Config {
+	font = "xft:JetBrains Mono:size=10",
+	bgColor = "#1c1c1c",
+	fgColor = "#eeeeee",
+	position = Top,
+	allDesktops = True,
+	commands = [
+		Run StdinReader,
+		Run Date "%d %b - %I:%M %p" "date" 60
+	],
+	sepChar = "%",
+	alignSep = "}{",
+	template = "%StdinReader% }{ %date%"
+}
