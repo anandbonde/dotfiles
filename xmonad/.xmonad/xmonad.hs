@@ -2,12 +2,17 @@ import XMonad
 import Control.Monad (when)
 import Data.List (isInfixOf)
 import Debug.Trace
+import XMonad.Actions.WindowGo
+import XMonad.Actions.Navigation2D
+import XMonad.Actions.GridSelect
+import XMonad.Actions.FocusNth
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops as E
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.Fullscreen
+import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.ToggleLayouts
@@ -21,15 +26,13 @@ import System.IO (hPutStrLn)
 
 
 myModMask = mod1Mask
-
-
 myTerminal = "st"
 myBrowser = "firefox"
 
 
 main = do
     xmproc <- spawnPipe "xmobar"
-    xmonad $ withUrgencyHook MyUrgencyHook $ ewmh $ docks def
+    xmonad $ withNavigation2DConfig def $ withUrgencyHook MyUrgencyHook $ ewmh $ docks def
         { modMask               = myModMask
         , terminal              = myTerminal
         , borderWidth           = 1
@@ -43,7 +46,7 @@ main = do
         , handleEventHook       = handleEventHook def <+> E.fullscreenEventHook
         , logHook               = dynamicLogWithPP xmobarPP
                                     { ppOutput = hPutStrLn xmproc
-                                    -- ,  ppLayout = const "" -- hide layout name
+                                    , ppLayout = const "" -- hide layout name
                                     }
         , startupHook           = myStartupHook
         }
@@ -53,6 +56,18 @@ main = do
         `additionalKeysP`
         [ ("M-f", sendMessage ToggleStruts >> sendMessage ToggleLayout)
         , ("M-v", namedScratchpadAction myScratchpads "term")
+        , ("M-S-r", spawn "xmonad --recompile && xmonad --restart")
+        -- floating window (Mod + t to tile it back again)
+        , ("M-S-f", withFocused $ \w -> windows (W.float w (W.RationalRect 0.25 0.25 0.5 0.5)))
+        , ("M-s", goToSelected myGSConfig)
+        -- , ("M-h", windowGo L False)
+        -- , ("M-l", windowGo R False)
+        -- , ("M-j", windowGo D False)
+        -- , ("M-k", windowGo U False)
+        , ("M-u", focusUrgent)
+        , ("M-b", runOrRaise "firefox" (className =? "firefox_firefox"))
+        , ("M-t", runOrRaise "st" (className =? "st-256color"))
+        , ("M-w", runOrRaise "steam -silent steam://rungameid/444200" (className =? "steam_app_444200"))
         ]
 
 
@@ -80,20 +95,25 @@ instance UrgencyHook MyUrgencyHook where
     urgencyHook MyUrgencyHook w = do
         name <- NW.getName w
         let winName = show name
-        when ("steam_app_444200" `isInfixOf` winName) $
-            safeSpawn "notify-send -u critical -t 5000" ["Steam is urgent"]
+        when ("WoT Blitz" `isInfixOf` winName) $
+            safeSpawn "notify-send" ["-u", "critical", "-t", "5000", "Steam is urgent"]
 
 
-myLayout = fullscreenFull $ avoidStruts $ toggleLayouts Full $ spacing 4 (
+myLayout = fullscreenFull $ smartBorders $ avoidStruts $ toggleLayouts Full $ spacing 0 (
             Tall        1 (3/100) (1/2)
         ||| ThreeColMid 1 (3/100) (1/2)
         ||| Mirror (Tall 1 (3/100) (1/2))
         ||| Full
     )
 
-
 myStartupHook = do
     spawn "xset r rate 200 40"
     spawn "pgrep -x sxhkd || sxhkd &"
     spawn "nitrogen --restore"
-  
+
+
+myGSConfig = def
+    { gs_cellheight = 30
+    , gs_cellwidth  = 200
+    , gs_font = "xft:JetBrains Mono:size=10"
+    }
