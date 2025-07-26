@@ -12,7 +12,6 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.Fullscreen
-import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.ToggleLayouts
@@ -54,27 +53,27 @@ main = do
         [ ((mod4Mask, xK_Return), spawn myTerminal)
         ]
         `additionalKeysP`
-        [ ("M-f", sendMessage ToggleStruts >> sendMessage ToggleLayout)
-        , ("M-v", namedScratchpadAction myScratchpads "term")
+        [ ("M-f",   sendMessage ToggleStruts >> sendMessage ToggleLayout)
+        , ("M-v",   namedScratchpadAction myScratchpads "term")
         , ("M-S-r", spawn "xmonad --recompile && xmonad --restart")
-        -- floating window (Mod + t to tile it back again)
         , ("M-S-f", withFocused $ \w -> windows (W.float w (W.RationalRect 0.25 0.25 0.5 0.5)))
-        , ("M-s", goToSelected myGSConfig)
-        -- , ("M-h", windowGo L False)
-        -- , ("M-l", windowGo R False)
-        -- , ("M-j", windowGo D False)
-        -- , ("M-k", windowGo U False)
-        , ("M-u", focusUrgent)
-        , ("M-b", runOrRaise "firefox" (className =? "firefox_firefox"))
-        , ("M-t", runOrRaise "st" (className =? "st-256color"))
-        , ("M-w", runOrRaise "steam -silent steam://rungameid/444200" (className =? "steam_app_444200"))
+        , ("M-s",   goToSelected myGSConfig)
+        , ("M-u",   focusUrgent)
+        , ("M-h",   windowGo L False)
+        , ("M-l",   windowGo R False)
+        , ("M-j",   windowGo D False)
+        , ("M-k",   windowGo U False)
+        , ("M-b",   runOrRaise "firefox" (className =? "firefox_firefox"))
+        , ("M-r",   runOrRaise "st" (className =? "st-256color"))
+        , ("M-g",   runOrRaise "steam -silent steam://rungameid/444200" (className =? "steam_app_444200"))
+        , ("M-n",   runGridActions)
         ]
 
 
 myManageHook = composeAll
     [ className =? "steam_app_444200"   --> doShift "2:wotb"
     , className =? "steam"              --> doShift "9:steam"
-    , className =? "firefox_firefox"    --> doShift "3:internet"
+    -- , className =? "firefox_firefox"    --> doShift "3:internet"
     ]
 
 
@@ -99,12 +98,13 @@ instance UrgencyHook MyUrgencyHook where
             safeSpawn "notify-send" ["-u", "critical", "-t", "5000", "Steam is urgent"]
 
 
-myLayout = fullscreenFull $ smartBorders $ avoidStruts $ toggleLayouts Full $ spacing 0 (
+myLayout = fullscreenFull $ avoidStruts $ toggleLayouts Full $ spacing 0 (
             Tall        1 (3/100) (1/2)
         ||| ThreeColMid 1 (3/100) (1/2)
         ||| Mirror (Tall 1 (3/100) (1/2))
         ||| Full
     )
+
 
 myStartupHook = do
     spawn "xset r rate 200 40"
@@ -115,5 +115,17 @@ myStartupHook = do
 myGSConfig = def
     { gs_cellheight = 30
     , gs_cellwidth  = 200
-    , gs_font = "xft:JetBrains Mono:size=10"
+    , gs_font       = "xft:JetBrains Mono:size=10"
     }
+
+
+myGridActions :: [(String, X ())]
+myGridActions =
+    [ ("Pull Requests",  spawn "firefox --new-tab 'https://github.com/microsoft/demikernel/pulls'")
+    , ("Github Actions", spawn "firefox --new-tab 'https://github.com/microsoft/demikernel/actions'")
+    , ("ChatGPT",        spawn "firefox --new-tab 'chatgpt.com'")
+    ]
+
+
+runGridActions :: X ()
+runGridActions = gridselect defaultGSConfig myGridActions >>= maybe (return ()) id
